@@ -91,7 +91,9 @@ class Car {
     this.odometer += this.maxDistance;
     this.tank -= (this.maxDistance / this.milesPerGallon);
 
-    if(this.tank === 0){
+    if(this.tank <= 0){
+      this.tank = 0;
+      this.odometer -= 1;
       return `I ran out of fuel at ${this.odometer} miles!`;
     }
   }
@@ -193,18 +195,31 @@ class Student extends Lambdasian {
 
 /*
   TASK 6
-    - Write a ProjectManager class extending Instructor.
+    - Write a TeamLead class extending Instructor.
     - Its constructor takes a single argument - an object with the following keys:
         + All the keys used to initialize instances of Instructor.
         + `gradClassName`: i.e. CS1
         + `favInstructor`: i.e. Sean
     - Its constructor calls the parent constructor passing to it what it needs.
     - The constructor should also initialize `gradClassName` and `favInstructor` properties on the instance.
-    - ProjectManager instances have the following methods:
+    - TeamLead instances have the following methods:
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class TeamLead extends Instructor{
+  constructor(attributes){
+    super(attributes);
+    this.gradClassName = attributes.gradClassName;
+    this.favInstructor = attributes.favInstructor;
+  }
+
+  standUp(channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`;
+  }
+
+  debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`;
+  }
 
 }
 
@@ -228,5 +243,5 @@ if (typeof exports !== 'undefined') {
   if (Lambdasian) { module.exports.Lambdasian = Lambdasian }
   if (Instructor) { module.exports.Instructor = Instructor }
   if (Student) { module.exports.Student = Student }
-  if (ProjectManager) { module.exports.ProjectManager = ProjectManager }
+  if (TeamLead) { module.exports.TeamLead = TeamLead }
 }
